@@ -3,6 +3,7 @@ import express from 'express';
 import {
   createTask,
   getTasks,
+  getTaskById,
   updateTask,
   deleteTask,
   downloadFile,
@@ -18,14 +19,17 @@ router.use(protect);
 router.get('/:id/files/:filename', downloadFile);
 
 // CRUD routes
+
+router
+  .route('/:id')
+  .get(getTaskById)
+  .put(upload.array('documents', 5), updateTask)
+  .delete(deleteTask);
+
 router
   .route('/')
   .post(upload.array('documents', 5), createTask)
   .get(getTasks);
 
-router
-  .route('/:id')
-  .put(upload.array('documents', 5), updateTask)
-  .delete(deleteTask);
 
 export default router;
