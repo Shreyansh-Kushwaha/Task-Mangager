@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./backend
+    container_name: backend_app
+    restart: always
+    ports:
+      - "1393:1393"
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+      - ./backend/uploads:/app/uploads
+
+  frontend:
+    build: ./frontend
+    container_name: frontend_app
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
