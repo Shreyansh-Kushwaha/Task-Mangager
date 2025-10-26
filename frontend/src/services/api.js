@@ -1,7 +1,8 @@
 import axios from 'axios';
 
+
 const API = axios.create({
-  baseURL: 'http://localhost:1393/api', // your backend URL
+  baseURL: process.env.REACT_APP_API_URL, // your backend URL
 });
 
 // Add JWT token automatically if available
@@ -14,3 +15,4 @@ API.interceptors.request.use((config) => {
 });
 
 export default API;
+
